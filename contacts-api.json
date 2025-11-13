@@ -29,7 +29,9 @@
         "summary": "Get all contacts",
         "description": "Retrieve a list of all contacts with optional filtering and pagination",
         "operationId": "getContacts",
-        "tags": ["Contacts"],
+        "tags": [
+          "Contacts"
+        ],
         "parameters": [
           {
             "name": "page",
@@ -90,6 +92,9 @@
           "400": {
             "$ref": "#/components/responses/BadRequest"
           },
+          "404": {
+            "description": "Not Found"
+          },
           "500": {
             "$ref": "#/components/responses/InternalServerError"
           }
@@ -99,7 +104,9 @@
         "summary": "Create a new contact",
         "description": "Create a new contact with the provided information",
         "operationId": "createContact",
-        "tags": ["Contacts"],
+        "tags": [
+          "Contacts"
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -139,7 +146,9 @@
         "summary": "Get a contact by ID",
         "description": "Retrieve a specific contact by its unique identifier",
         "operationId": "getContactById",
-        "tags": ["Contacts"],
+        "tags": [
+          "Contacts"
+        ],
         "parameters": [
           {
             "$ref": "#/components/parameters/ContactId"
@@ -152,6 +161,11 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Contact"
+                },
+                "examples": {
+                  "Example 1": {
+                    "$ref": "#/components/examples/ContactExample"
+                  }
                 }
               }
             }
@@ -168,7 +182,9 @@
         "summary": "Update a contact",
         "description": "Update an existing contact with new information",
         "operationId": "updateContact",
-        "tags": ["Contacts"],
+        "tags": [
+          "Contacts"
+        ],
         "parameters": [
           {
             "$ref": "#/components/parameters/ContactId"
@@ -214,7 +230,9 @@
         "summary": "Delete a contact",
         "description": "Delete an existing contact by its unique identifier",
         "operationId": "deleteContact",
-        "tags": ["Contacts"],
+        "tags": [
+          "Contacts"
+        ],
         "parameters": [
           {
             "$ref": "#/components/parameters/ContactId"
@@ -232,13 +250,53 @@
           }
         }
       }
+    },
+    "/contacts/{ContactId}/addresses": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "ContactId",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Get addresses of a specific contact",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Address"
+                  }
+                },
+                "examples": {
+                  "Example 1": {
+                    "$ref": "#/components/examples/AddressesExample"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        },
+        "operationId": "get-contacts-ContactId-addresses",
+        "description": "Get addresses of a specific contact"
+      }
     }
   },
   "components": {
     "schemas": {
       "Contact": {
         "type": "object",
-        "required": ["id", "firstName", "lastName", "email"],
         "properties": {
           "id": {
             "type": "string",
@@ -265,18 +323,22 @@
             "description": "Primary email address",
             "example": "john.doe@example.com"
           },
+          "addresses": {
+            "type": "array",
+            "x-stoplight": {
+              "id": "phumnk4u2ccsh"
+            },
+            "description": "List of addresses",
+            "items": {
+              "$ref": "#/components/schemas/Address"
+            }
+          },
           "phoneNumbers": {
             "type": "array",
+            "description": "List of phone numbers for the contact",
             "items": {
               "$ref": "#/components/schemas/PhoneNumber"
-            },
-            "description": "List of phone numbers for the contact"
-          },
-          "homeAddress": {
-            "$ref": "#/components/schemas/Address"
-          },
-          "workAddress": {
-            "$ref": "#/components/schemas/Address"
+            }
           },
           "createdAt": {
             "type": "string",
@@ -290,11 +352,16 @@
             "description": "Timestamp when the contact was last updated",
             "example": "2023-01-20T14:45:00Z"
           }
-        }
+        },
+        "required": [
+          "id",
+          "firstName",
+          "lastName",
+          "email"
+        ]
       },
       "ContactInput": {
         "type": "object",
-        "required": ["firstName", "lastName", "email"],
         "properties": {
           "firstName": {
             "type": "string",
@@ -315,24 +382,29 @@
             "description": "Primary email address",
             "example": "john.doe@example.com"
           },
+          "addresses": {
+            "$ref": "#/components/schemas/AddressInput"
+          },
           "phoneNumbers": {
             "type": "array",
+            "description": "List of phone numbers for the contact",
             "items": {
               "$ref": "#/components/schemas/PhoneNumberInput"
-            },
-            "description": "List of phone numbers for the contact"
-          },
-          "homeAddress": {
-            "$ref": "#/components/schemas/AddressInput"
-          },
-          "workAddress": {
-            "$ref": "#/components/schemas/AddressInput"
+            }
           }
-        }
+        },
+        "required": [
+          "firstName",
+          "lastName",
+          "email"
+        ]
       },
       "PhoneNumber": {
         "type": "object",
-        "required": ["number", "type"],
+        "required": [
+          "number",
+          "type"
+        ],
         "properties": {
           "id": {
             "type": "string",
@@ -347,7 +419,12 @@
           },
           "type": {
             "type": "string",
-            "enum": ["mobile", "home", "work", "other"],
+            "enum": [
+              "mobile",
+              "home",
+              "work",
+              "other"
+            ],
             "description": "Type of phone number",
             "example": "mobile"
           },
@@ -360,7 +437,10 @@
       },
       "PhoneNumberInput": {
         "type": "object",
-        "required": ["number", "type"],
+        "required": [
+          "number",
+          "type"
+        ],
         "properties": {
           "number": {
             "type": "string",
@@ -370,7 +450,12 @@
           },
           "type": {
             "type": "string",
-            "enum": ["mobile", "home", "work", "other"],
+            "enum": [
+              "mobile",
+              "home",
+              "work",
+              "other"
+            ],
             "description": "Type of phone number",
             "example": "mobile"
           },
@@ -418,6 +503,13 @@
             "maxLength": 50,
             "description": "Country name",
             "example": "United States"
+          },
+          "type": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "nakfhynowqgfd"
+            },
+            "description": "Adress type (work, home, etc...)"
           }
         }
       },
@@ -453,6 +545,13 @@
             "maxLength": 50,
             "description": "Country name",
             "example": "United States"
+          },
+          "type": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "l4wuiqa68pbr8"
+            },
+            "description": "work, home, etc..."
           }
         }
       },
@@ -479,11 +578,16 @@
       },
       "Error": {
         "type": "object",
-        "required": ["error"],
+        "required": [
+          "error"
+        ],
         "properties": {
           "error": {
             "type": "object",
-            "required": ["code", "message"],
+            "required": [
+              "code",
+              "message"
+            ],
             "properties": {
               "code": {
                 "type": "string",
@@ -531,6 +635,11 @@
           "application/json": {
             "schema": {
               "$ref": "#/components/schemas/Error"
+            },
+            "examples": {
+              "Example 1": {
+                "$ref": "#/components/examples/Error400"
+              }
             }
           }
         }
@@ -541,6 +650,11 @@
           "application/json": {
             "schema": {
               "$ref": "#/components/schemas/Error"
+            },
+            "examples": {
+              "Example 1": {
+                "$ref": "#/components/examples/Error404"
+              }
             }
           }
         }
@@ -551,6 +665,11 @@
           "application/json": {
             "schema": {
               "$ref": "#/components/schemas/Error"
+            },
+            "examples": {
+              "Example 1": {
+                "$ref": "#/components/examples/Error400"
+              }
             }
           }
         }
@@ -564,6 +683,106 @@
             }
           }
         }
+      }
+    },
+    "examples": {
+      "ContactExample": {
+        "value": {
+          "id": "a1b2c3d4-e5f6-7890-ab12-cd34ef567890",
+          "firstName": "Maria",
+          "lastName": "Santos",
+          "email": "maria.santos@example.net",
+          "addresses": [
+            {
+              "city": "Evanston",
+              "country": "United States",
+              "id": "14bd0032-6817-47a1-b7a8-84766fb65cc7",
+              "postalCode": "60201",
+              "state": "IL",
+              "street": "1200 Central Street",
+              "type": "home"
+            },
+            {
+              "city": "Chicago",
+              "country": "United States",
+              "id": "92acb18a-2cc3-40f9-8c09-17e75d2b4afc",
+              "postalCode": "60611",
+              "state": "IL",
+              "street": "455 North Lake Shore Drive",
+              "type": "work"
+            }
+          ],
+          "phoneNumbers": [
+            {
+              "id": "d78bbd11-9b76-4e61-95b9-278d8fd3f4f7",
+              "isPrimary": true,
+              "number": "+13125551234",
+              "type": "mobile"
+            },
+            {
+              "id": "f68c02b3-1c96-4eb1-8d95-bf90622c39a4",
+              "isPrimary": false,
+              "number": "+13125559876",
+              "type": "work"
+            }
+          ],
+          "createdAt": "2024-07-08T09:15:00Z",
+          "updatedAt": "2024-07-10T16:42:00Z"
+        }
+      },
+      "Error400": {
+        "value": {
+          "error": {
+            "code": "INVALID_INPUT",
+            "message": "One or more fields contain invalid data.",
+            "details": [
+              {
+                "field": "email",
+                "message": "The email format is invalid."
+              },
+              {
+                "field": "postalCode",
+                "message": "Postal code must be a 5-digit number."
+              }
+            ]
+          }
+        }
+      },
+      "Error404": {
+        "value": {
+          "error": {
+            "code": "CUSTOMER_NOT_FOUND",
+            "message": "The requested customer could not be found.",
+            "details": [
+              {
+                "field": "customerId",
+                "message": "No customer exists with the provided ID."
+              }
+            ]
+          }
+        }
+      },
+      "AddressesExample": {
+        "value": [
+          {
+            "city": "Evanston",
+            "country": "United States",
+            "id": "14bd0032-6817-47a1-b7a8-84766fb65cc7",
+            "postalCode": "60201",
+            "state": "IL",
+            "street": "1200 Central Street",
+            "type": "home"
+          },
+          {
+            "city": "Chicago",
+            "country": "United States",
+            "id": "92acb18a-2cc3-40f9-8c09-17e75d2b4afc",
+            "postalCode": "60611",
+            "state": "IL",
+            "street": "455 North Lake Shore Drive",
+            "type": "work"
+          }
+        ]
       }
     }
   },
