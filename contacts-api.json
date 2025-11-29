@@ -29,9 +29,7 @@
         "summary": "Get all contacts",
         "description": "Retrieve a list of all contacts with optional filtering and pagination",
         "operationId": "getContacts",
-        "tags": [
-          "Contacts"
-        ],
+        "tags": ["Contacts"],
         "parameters": [
           {
             "name": "page",
@@ -104,9 +102,7 @@
         "summary": "Create a new contact",
         "description": "Create a new contact with the provided information",
         "operationId": "createContact",
-        "tags": [
-          "Contacts"
-        ],
+        "tags": ["Contacts"],
         "requestBody": {
           "required": true,
           "content": {
@@ -146,9 +142,7 @@
         "summary": "Get a contact by ID",
         "description": "Retrieve a specific contact by its unique identifier",
         "operationId": "getContactById",
-        "tags": [
-          "Contacts"
-        ],
+        "tags": ["Contacts"],
         "parameters": [
           {
             "$ref": "#/components/parameters/ContactId"
@@ -182,9 +176,7 @@
         "summary": "Update a contact",
         "description": "Update an existing contact with new information",
         "operationId": "updateContact",
-        "tags": [
-          "Contacts"
-        ],
+        "tags": ["Contacts"],
         "parameters": [
           {
             "$ref": "#/components/parameters/ContactId"
@@ -230,9 +222,7 @@
         "summary": "Delete a contact",
         "description": "Delete an existing contact by its unique identifier",
         "operationId": "deleteContact",
-        "tags": [
-          "Contacts"
-        ],
+        "tags": ["Contacts"],
         "parameters": [
           {
             "$ref": "#/components/parameters/ContactId"
@@ -353,12 +343,7 @@
             "example": "2023-01-20T14:45:00Z"
           }
         },
-        "required": [
-          "id",
-          "firstName",
-          "lastName",
-          "email"
-        ]
+        "required": ["id", "firstName", "lastName", "email"]
       },
       "ContactInput": {
         "type": "object",
@@ -393,18 +378,11 @@
             }
           }
         },
-        "required": [
-          "firstName",
-          "lastName",
-          "email"
-        ]
+        "required": ["firstName", "lastName", "email"]
       },
       "PhoneNumber": {
         "type": "object",
-        "required": [
-          "number",
-          "type"
-        ],
+        "required": ["number", "type"],
         "properties": {
           "id": {
             "type": "string",
@@ -419,12 +397,7 @@
           },
           "type": {
             "type": "string",
-            "enum": [
-              "mobile",
-              "home",
-              "work",
-              "other"
-            ],
+            "enum": ["mobile", "home", "work", "other"],
             "description": "Type of phone number",
             "example": "mobile"
           },
@@ -437,10 +410,7 @@
       },
       "PhoneNumberInput": {
         "type": "object",
-        "required": [
-          "number",
-          "type"
-        ],
+        "required": ["number", "type"],
         "properties": {
           "number": {
             "type": "string",
@@ -450,12 +420,7 @@
           },
           "type": {
             "type": "string",
-            "enum": [
-              "mobile",
-              "home",
-              "work",
-              "other"
-            ],
+            "enum": ["mobile", "home", "work", "other"],
             "description": "Type of phone number",
             "example": "mobile"
           },
@@ -578,16 +543,11 @@
       },
       "Error": {
         "type": "object",
-        "required": [
-          "error"
-        ],
+        "required": ["error"],
         "properties": {
           "error": {
             "type": "object",
-            "required": [
-              "code",
-              "message"
-            ],
+            "required": ["code", "message"],
             "properties": {
               "code": {
                 "type": "string",
