@@ -1,0 +1,33 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPathPattern": "/v1/contacts/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}/addresses"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": [
+      {
+        "city": "Evanston",
+        "country": "United States",
+        "id": "14bd0032-6817-47a1-b7a8-84766fb65cc7",
+        "postalCode": "60201",
+        "state": "IL",
+        "street": "1200 Central Street",
+        "type": "home"
+      },
+      {
+        "city": "Chicago",
+        "country": "United States",
+        "id": "92acb18a-2cc3-40f9-8c09-17e75d2b4afc",
+        "postalCode": "60611",
+        "state": "IL",
+        "street": "455 North Lake Shore Drive",
+        "type": "work"
+      }
+    ]
+  },
+  "priority": 1
+}

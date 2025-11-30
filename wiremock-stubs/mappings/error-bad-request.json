@@ -1,0 +1,33 @@
+{
+  "request": {
+    "method": "POST",
+    "urlPath": "/v1/contacts",
+    "bodyPatterns": [
+      {
+        "matchesJsonPath": {
+          "expression": "$.email",
+          "absent": true
+        }
+      }
+    ]
+  },
+  "response": {
+    "status": 400,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "error": {
+        "code": "INVALID_INPUT",
+        "message": "One or more fields contain invalid data.",
+        "details": [
+          {
+            "field": "email",
+            "message": "The email format is invalid."
+          }
+        ]
+      }
+    }
+  },
+  "priority": 1
+}

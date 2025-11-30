@@ -1,0 +1,28 @@
+{
+  "request": {
+    "method": "POST",
+    "urlPath": "/v1/contacts",
+    "headers": {
+      "Content-Type": {
+        "equalTo": "application/json"
+      }
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "id": "c4d5e6f7-a8b9-0123-de45-fg67hi890123",
+      "firstName": "{{jsonPath request.body '$.firstName'}}",
+      "lastName": "{{jsonPath request.body '$.lastName'}}",
+      "email": "{{jsonPath request.body '$.email'}}",
+      "addresses": [],
+      "phoneNumbers": [],
+      "createdAt": "{{now}}",
+      "updatedAt": "{{now}}"
+    },
+    "transformers": ["response-template"]
+  }
+}

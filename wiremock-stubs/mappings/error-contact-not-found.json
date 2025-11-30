@@ -1,0 +1,25 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPath": "/v1/contacts/00000000-0000-0000-0000-000000000000"
+  },
+  "response": {
+    "status": 404,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "error": {
+        "code": "CUSTOMER_NOT_FOUND",
+        "message": "The requested customer could not be found.",
+        "details": [
+          {
+            "field": "customerId",
+            "message": "No customer exists with the provided ID."
+          }
+        ]
+      }
+    }
+  },
+  "priority": 1
+}

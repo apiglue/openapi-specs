@@ -1,0 +1,99 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPathPattern": "/v1/contacts",
+    "queryParameters": {
+      "page": {
+        "or": [{ "matches": ".*" }, { "absent": true }]
+      },
+      "limit": {
+        "or": [{ "matches": ".*" }, { "absent": true }]
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "data": [
+        {
+          "id": "a1b2c3d4-e5f6-7890-ab12-cd34ef567890",
+          "firstName": "Maria",
+          "lastName": "Santos",
+          "email": "maria.santos@example.net",
+          "addresses": [
+            {
+              "city": "Evanston",
+              "country": "United States",
+              "id": "14bd0032-6817-47a1-b7a8-84766fb65cc7",
+              "postalCode": "60201",
+              "state": "IL",
+              "street": "1200 Central Street",
+              "type": "home"
+            },
+            {
+              "city": "Chicago",
+              "country": "United States",
+              "id": "92acb18a-2cc3-40f9-8c09-17e75d2b4afc",
+              "postalCode": "60611",
+              "state": "IL",
+              "street": "455 North Lake Shore Drive",
+              "type": "work"
+            }
+          ],
+          "phoneNumbers": [
+            {
+              "id": "d78bbd11-9b76-4e61-95b9-278d8fd3f4f7",
+              "isPrimary": true,
+              "number": "+13125551234",
+              "type": "mobile"
+            },
+            {
+              "id": "f68c02b3-1c96-4eb1-8d95-bf90622c39a4",
+              "isPrimary": false,
+              "number": "+13125559876",
+              "type": "work"
+            }
+          ],
+          "createdAt": "2024-07-08T09:15:00Z",
+          "updatedAt": "2024-07-10T16:42:00Z"
+        },
+        {
+          "id": "550e8400-e29b-41d4-a716-446655440000",
+          "firstName": "John",
+          "lastName": "Doe",
+          "email": "john.doe@example.com",
+          "addresses": [
+            {
+              "city": "New York",
+              "country": "United States",
+              "id": "b2c3d4e5-f6a7-8901-bc23-de45fg678901",
+              "postalCode": "10001",
+              "state": "NY",
+              "street": "123 Main Street",
+              "type": "home"
+            }
+          ],
+          "phoneNumbers": [
+            {
+              "id": "c3d4e5f6-a7b8-9012-cd34-ef56gh789012",
+              "isPrimary": true,
+              "number": "+1234567890",
+              "type": "mobile"
+            }
+          ],
+          "createdAt": "2023-01-15T10:30:00Z",
+          "updatedAt": "2023-01-20T14:45:00Z"
+        }
+      ],
+      "pagination": {
+        "page": 1,
+        "limit": 20,
+        "total": 2,
+        "totalPages": 1
+      }
+    }
+  }
+}
